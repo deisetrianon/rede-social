@@ -20,3 +20,59 @@ body {
 #main-page {
   display: none;
 }
+
+.page{
+  display: grid;
+  height: 100vh;
+  background: linear-gradient(to bottom, #e8c3fd 0%, #86c5fc 100%);
+}
+
+.username{
+  display: flex;
+  justify-content: center;
+}
+
+#visibility{    
+  font-size: 15px;
+  width: 100px;
+  background-color: black;
+  padding: 5px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.log-out{
+  font-size: 18px;
+  border: none;
+  background-color: transparent;
+  float: right;
+}
+form{
+  display: flex;
+  margin: 10px;
+  flex-wrap: wrap;
+  float: right;
+  justify-content: flex-end;
+}
+.tasks-input{
+  height: 100px;
+  width: 100%;
+  background-color: #f5f5f5;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.add-tasks{
+  height: 40px;
+  width: 100px;
+  font-size: 20px;
+}
+
+.tasks-list{
+  background-color: whitesmoke;
+  display: grid;
+  margin: 10px;
+  row-gap: 15px;
+  font-size: 20px;
+}
