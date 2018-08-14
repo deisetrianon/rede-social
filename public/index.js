@@ -1,7 +1,9 @@
+var database = firebase.database();
+
 $(document).ready(function() {
+  fadePage();
   $(".sign-up-button").click(signUpClick);
   $(".sign-in-button").click(signInClick);
-  fadePage();
 });
 
 function fadePage() {
@@ -12,16 +14,18 @@ function fadePage() {
 function signUpClick(event) {
   event.preventDefault();
   
+  var name = $('.sign-up-name').val();
   var email = $(".sign-up-email").val();
   var password = $(".sign-up-password").val();
 
-  createUser(email, password);
+  createUser(name, email, password);
 }
 
-function createUser(email, password) {
+function createUser(name, email, password) {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function(response) {
       var userId = response.user.uid;
+      userInfo(userId, name, email, password);
       redirectToTasks(userId);
     })
     .catch(function(error) {
@@ -56,4 +60,12 @@ function handleError(error) {
 
 function redirectToTasks(userId) {
   window.location = "posts.html?id=" + userId;
+}
+
+function userInfo(userId, name, email, password) {
+  database.ref('users/' + userId).set({
+    name: name,
+    email: email,
+    password: password,
+  });
 }

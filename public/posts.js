@@ -4,20 +4,25 @@ var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 $(document).ready(function() {
   getTasksFromDB();
   $(".add-tasks").click(addTasksClick);
+  userInfo();
 });
 
 function addTasksClick(event) {
   event.preventDefault();
 
   var newTask = $(".tasks-input").val();
-  var taskFromDB = addTaskToDB(newTask);
+  /* var visibility = $("#visibility").val(); */
+  var visibility = $('input[name=visibility]:checked').val();
+  var taskFromDB = addTaskToDB(newTask, visibility);
 
-  createListItem(newTask, taskFromDB.key)
+  createListItem(newTask, taskFromDB.key);
+  $(".tasks-input").val("");
 }
 
-function addTaskToDB(text) {
+function addTaskToDB(text, visibility) {
   return database.ref("posts/" + USER_ID).push({
-    text: text
+    text: text,
+    visibility: visibility,
   });
 }
 
@@ -32,11 +37,11 @@ function getTasksFromDB() {
     });
 }
 
-
 function createListItem(text, key) {
   $(".tasks-list").prepend(`
-    <div>
+    <div class="post-box">
       <span>${text}</span>
+      <br>
       <button class="edit-post">Editar</button>
       <button class="delete-post">Deletar</button>
     </div>`);
@@ -44,6 +49,15 @@ function createListItem(text, key) {
   $('.delete-post').click(function() {
     database.ref("posts/" + USER_ID + "/" + key).remove();
     $(this).parent().remove();
+  });
+}
+
+function userInfo() {
+  database.ref("users/" + USER_ID).once('value')
+  .then(function(snapshot) {
+    var userName = snapshot.val().name;
+    var userEmail = snapshot.val().email;
+    $('.username').html('<i class="fas fa-user"></i> ' + userName + ' <small>(' + userEmail + ')</small>');
   });
 }
 
