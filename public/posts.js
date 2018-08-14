@@ -10,17 +10,19 @@ function addTasksClick(event) {
   event.preventDefault();
 
   var newTask = $(".tasks-input").val();
-  var taskFromDB = addTaskToDB(newTask);
+  var visibility = $("#visibility").val();
+  var taskFromDB = addTaskToDB(newTask, visibility);
 
-  createListItem(newTask, taskFromDB.key)
+  createListItem(newTask, taskFromDB.key);
+  $(".tasks-input").val("");
 }
 
-function addTaskToDB(text) {
+function addTaskToDB(text, visibility) {
   return database.ref("posts/" + USER_ID).push({
-    text: text
+    text: text,
+    visibility: visibility,
   });
 }
-
 function getTasksFromDB() {
   database.ref("posts/" + USER_ID).once('value')
     .then(function(snapshot) {
@@ -31,8 +33,6 @@ function getTasksFromDB() {
       });
     });
 }
-
-
 function createListItem(text, key) {
   $(".tasks-list").prepend(`
     <div>

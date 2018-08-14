@@ -12,9 +12,13 @@
   <script src="firebase-config.js"></script>
 </head>
 <body>
-
   <h1 class="teste-teste">Todo list</h1>
   <form>
+    <select id="visibility">
+      <option value="private">private</option>
+      <option value="friends">friends</option>
+      <option value="public">public</option>
+    </select>
     <input type="text" class="tasks-input"/>
     <button class="add-tasks">Adicionar</button>
   </form>
