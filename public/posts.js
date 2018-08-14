@@ -61,6 +61,14 @@ function userInfo() {
   });
 }
 
+$('.newsfeed').click(function(){
+  window.location = "posts.html?id=" + USER_ID;
+})
+
+$('.explore').click(function(){
+  window.location = "explore.html?id=" + USER_ID;
+})
+
 $('.log-out').click(function() {
   firebase.auth().signOut().then(function() {
     /* Sign-out successful */

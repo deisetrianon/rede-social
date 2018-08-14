@@ -64,7 +64,7 @@ small span {
   cursor: pointer;
 }
 
-.page {
+#posts-page {
   display: grid;
   height: 100vh;
   background-color: #DDE7DC;
@@ -123,4 +123,10 @@ textarea:focus {
   padding: 15px;
   font-size: 13px;
   margin: 10px;
+}
+
+.newsfeed , .explore {
+  outline: none;
+  border: none;
+  cursor: pointer;
 }
