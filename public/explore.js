@@ -4,9 +4,6 @@ var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 $(document).ready(function() {
   userInfo();
   allUsersInfo();
-  newsfeedRedirect();
-  exploreRedirect();
-  logOut();
 });
 
 function userInfo() {
@@ -22,41 +19,56 @@ function allUsersInfo() {
   var usersRef = firebase.database().ref('users');
   usersRef.on("child_added", function(snapshot) {
     var allUsersNames = snapshot.val().name;
+    var allUsersId = snapshot.key;
+
     $('#list-of-users').append(`
       <div class="explore-user-box">
         <i class="fas fa-user-circle fa-4x text-secondary"></i>
-        <div>
+        <div class="info-user">
           ${allUsersNames} 
           <br>
-          <button type="button" class="btn follow-user"><i class="fas fa-user-plus"></i> Seguir</button>
+          <button type="button" id="btn-${allUsersNames}" class="btn"><i class="fas fa-user-plus"></i> Seguir</button>
         </div>
       </div>
     `);
-    /* console.log(snapshot.key);
-    console.log(snapshot.val().name);
-    console.log(snapshot.val().email); */
-  });
-}
 
-function newsfeedRedirect() {
-  $('.newsfeed').click(function(){
-    window.location = "posts.html?id=" + USER_ID;
-  })
-}
+    if (allUsersId === USER_ID) {
+      /* $(`#btn-${allUsersNames}`).remove(); */
+      $(`#btn-${allUsersNames}`).replaceWith('<div><small>(SEU PERFIL)</small></div>');
+    }
 
-function exploreRedirect() {
-  $('.explore').click(function(){
-    window.location = "explore.html?id=" + USER_ID;
-  })
-}
-
-function logOut() {
-  $('.log-out').click(function() {
-    firebase.auth().signOut().then(function() {
-      /* Sign-out successful */
-      window.location = "index.html";
-    }).catch(function(error) {
-      alert(error.message);
+    $(`#btn-${allUsersNames}`).click(function() {
+      $(this).fadeOut('slow');
+      $(this).replaceWith('<button type="button" class="btn"><i class="fas fa-user-minus"></i> Seguindo</button>');
+      var friendsRef = firebase.database().ref('friendship');
+      friendsRef.on("child_added", function(snapshot) { 
+        var currentUserId = snapshot.key;
+        currentUserId = USER_ID;
+        
+        database.ref('friendship/' + currentUserId).push({
+          friend: allUsersId,
+        });
+      });
     });
-  })
+
+  });
+
 }
+
+$('.newsfeed').click(function(){
+  window.location = "posts.html?id=" + USER_ID;
+})
+
+
+$('.explore').click(function(){
+  window.location = "explore.html?id=" + USER_ID;
+})
+
+
+$('.log-out').click(function() {
+  firebase.auth().signOut().then(function() {
+    window.location = "index.html";
+  }).catch(function(error) {
+    alert(error.message);
+  });
+})
