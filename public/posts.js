@@ -43,16 +43,28 @@ function getTasksFromDB() {
 function createListItem(text, key) {
   $(".tasks-list").prepend(`
     <div class="post-box">
-      <span>${text}</span>
+      <span class="post-text">${text}</span>
       <br>
       <button class="edit-post">Editar</button>
       <button class="delete-post">Deletar</button>
     </div>`);
+  var textElement = $('.post-text:first');
+  var editBtn = $('.edit-post:first');
 
   $('.delete-post').click(function() {
     database.ref("posts/" + USER_ID + "/" + key).remove();
     $(this).parent().remove();
   });
+  editBtn.click(function(){
+    var textArea = document.createElement('textarea');
+    textArea.value = text;
+    textElement.text("");
+    textElement.append(textArea);
+    editBtn.text("Salvar");
+    database.ref('posts/' + USER_ID + '/' + key).update({
+      text: "",
+    });
+  })
 }
 
 function userInfo() {
