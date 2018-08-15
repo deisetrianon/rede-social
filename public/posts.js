@@ -39,28 +39,28 @@ function getTasksFromDB() {
 function createListItem(text, key) {
   $(".tasks-list").prepend(`
     <div class="post-box">
-      <span class="post-text">${text}</span>
+      <span id="post-text-${key}">${text}</span>
       <br>
-      <button class="edit-post">Editar</button>
-      <button class="delete-post">Deletar</button>
+      <button id="edit-post-${key}">Editar</button>
+      <button id="delete-post-${key}">Deletar</button>
     </div>`);
-  var textElement = $('.post-text:first');
-  var editBtn = $('.edit-post:first');
 
-  $('.delete-post').click(function() {
+  $(`#edit-post-${key}`).click(function() {
+    $(this).replaceWith(`<button id="save-post-${key}">Salvar</button>`);
+    $(`#post-text-${key}`).attr('contentEditable', 'true').focus(function(){
+      $(`#save-post-${key}`).click(function() {
+        var editedPost = $(`#post-text-${key}`).html();
+        database.ref("posts/" + USER_ID + "/" + key + "/text").set(editedPost);
+        $(`#post-text-${key}`).attr('contentEditable', 'false');
+        $(this).replaceWith(`<button id="edit-post-${key}">Editar</button>`);
+      })
+    })
+  });
+
+  $(`#delete-post-${key}`).click(function() {
     database.ref("posts/" + USER_ID + "/" + key).remove();
     $(this).parent().remove();
   });
-  editBtn.click(function(){
-    var textArea = document.createElement('textarea');
-    textArea.value = text;
-    textElement.text("");
-    textElement.append(textArea);
-    editBtn.text("Salvar");
-    database.ref('posts/' + USER_ID + '/' + key).update({
-      text: "",
-    });
-  })
 }
 
 function userInfo() {
@@ -76,11 +76,9 @@ $('.newsfeed').click(function(){
   window.location = "posts.html?id=" + USER_ID;
 })
 
-
 $('.explore').click(function(){
   window.location = "explore.html?id=" + USER_ID;
 })
-
 
 $('.log-out').click(function() {
   firebase.auth().signOut().then(function() {
