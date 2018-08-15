@@ -33,7 +33,6 @@ function allUsersInfo() {
     `);
 
     if (allUsersId === USER_ID) {
-      /* $(`#btn-${allUsersNames}`).remove(); */
       $(`#btn-${allUsersNames}`).replaceWith('<div><small>(SEU PERFIL)</small></div>');
     }
 
