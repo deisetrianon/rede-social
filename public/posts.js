@@ -5,6 +5,7 @@ $(document).ready(function() {
   getTasksFromDB();
   $(".add-tasks").click(addTasksClick);
   userInfo();
+  teste();
 });
 
 function addTasksClick(event) {
@@ -87,3 +88,24 @@ $('.log-out').click(function() {
     alert(error.message);
   });
 })
+
+function teste() {
+  var reference = firebase.database().ref('friendship/' + USER_ID);
+  reference.on("child_added", function(snapshot) {
+    /* console.log(snapshot.val().friend); */
+    var followingId = snapshot.val().friend;
+
+    database.ref("posts/" + followingId).once('value')
+    .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        /* console.log(childSnapshot.key); */
+        var followingPosts = childSnapshot.val().text;
+        $(".tasks-list").prepend(`
+          <div class="post-box">
+            <span id="post-text-${childSnapshot.key}">${childSnapshot.val().text}</span>
+          </div>`);
+      });
+    });
+
+  });
+}
