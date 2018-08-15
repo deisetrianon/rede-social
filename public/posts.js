@@ -5,6 +5,9 @@ $(document).ready(function() {
   getTasksFromDB();
   $(".add-tasks").click(addTasksClick);
   userInfo();
+  newsfeedRedirect();
+  exploreRedirect();
+  logOut();
 });
 
 function addTasksClick(event) {
@@ -61,19 +64,25 @@ function userInfo() {
   });
 }
 
-$('.newsfeed').click(function(){
-  window.location = "posts.html?id=" + USER_ID;
-})
+function newsfeedRedirect() {
+  $('.newsfeed').click(function(){
+    window.location = "posts.html?id=" + USER_ID;
+  })
+}
 
-$('.explore').click(function(){
-  window.location = "explore.html?id=" + USER_ID;
-})
+function exploreRedirect() {
+  $('.explore').click(function(){
+    window.location = "explore.html?id=" + USER_ID;
+  })
+}
 
-$('.log-out').click(function() {
-  firebase.auth().signOut().then(function() {
-    /* Sign-out successful */
-    window.location = "index.html";
-  }).catch(function(error) {
-    alert(error.message);
-  });
-})
+function logOut() {
+  $('.log-out').click(function() {
+    firebase.auth().signOut().then(function() {
+      /* Sign-out successful */
+      window.location = "index.html";
+    }).catch(function(error) {
+      alert(error.message);
+    });
+  })
+}
