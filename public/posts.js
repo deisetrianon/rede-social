@@ -5,16 +5,12 @@ $(document).ready(function() {
   getTasksFromDB();
   $(".add-tasks").click(addTasksClick);
   userInfo();
-  newsfeedRedirect();
-  exploreRedirect();
-  logOut();
 });
 
 function addTasksClick(event) {
   event.preventDefault();
 
   var newTask = $(".tasks-input").val();
-  /* var visibility = $("#visibility").val(); */
   var visibility = $('input[name=visibility]:checked').val();
   var taskFromDB = addTaskToDB(newTask, visibility);
 
@@ -64,25 +60,20 @@ function userInfo() {
   });
 }
 
-function newsfeedRedirect() {
-  $('.newsfeed').click(function(){
-    window.location = "posts.html?id=" + USER_ID;
-  })
-}
+$('.newsfeed').click(function(){
+  window.location = "posts.html?id=" + USER_ID;
+})
 
-function exploreRedirect() {
-  $('.explore').click(function(){
-    window.location = "explore.html?id=" + USER_ID;
-  })
-}
 
-function logOut() {
-  $('.log-out').click(function() {
-    firebase.auth().signOut().then(function() {
-      /* Sign-out successful */
-      window.location = "index.html";
-    }).catch(function(error) {
-      alert(error.message);
-    });
-  })
-}
+$('.explore').click(function(){
+  window.location = "explore.html?id=" + USER_ID;
+})
+
+
+$('.log-out').click(function() {
+  firebase.auth().signOut().then(function() {
+    window.location = "index.html";
+  }).catch(function(error) {
+    alert(error.message);
+  });
+})
