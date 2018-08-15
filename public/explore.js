@@ -39,15 +39,15 @@ function allUsersInfo() {
     $(`#btn-${allUsersNames}`).click(function() {
       $(this).fadeOut('slow');
       $(this).replaceWith('<button type="button" class="btn"><i class="fas fa-user-minus"></i> Seguindo</button>');
-      var friendsRef = firebase.database().ref('friendship');
-      friendsRef.on("child_added", function(snapshot) { 
+      /* var friendsRef = firebase.database().ref('friendship'); */
+      /* friendsRef.on("child_added", function(snapshot) { 
         var currentUserId = snapshot.key;
         currentUserId = USER_ID;
-        
-        database.ref('friendship/' + currentUserId).push({
+         */
+        database.ref('friendship/' + USER_ID).push({
           friend: allUsersId,
         });
-      });
+      /* }); */
     });
 
   });
@@ -58,11 +58,9 @@ $('.newsfeed').click(function(){
   window.location = "posts.html?id=" + USER_ID;
 })
 
-
 $('.explore').click(function(){
   window.location = "explore.html?id=" + USER_ID;
 })
-
 
 $('.log-out').click(function() {
   firebase.auth().signOut().then(function() {
