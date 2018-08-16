@@ -23,11 +23,11 @@ function allUsersInfo() {
 
     $('#list-of-users').append(`
       <div class="explore-user-box">
-        <i class="fas fa-user-circle fa-4x text-secondary"></i>
+        <i class="fas fa-user-circle fa-3x"></i>
         <div class="info-user">
           ${allUsersNames} 
           <br>
-          <button type="button" id="btn-${allUsersNames}" class="btn"><i class="fas fa-user-plus"></i> Seguir</button>
+          <button type="button" id="btn-${allUsersNames}" class="btn text-white font-weight-bold"><i class="fas fa-user-plus"></i> Seguir</button>
         </div>
       </div>
     `);
@@ -38,16 +38,10 @@ function allUsersInfo() {
 
     $(`#btn-${allUsersNames}`).click(function() {
       $(this).fadeOut('slow');
-      $(this).replaceWith('<button type="button" class="btn"><i class="fas fa-user-minus"></i> Seguindo</button>');
-      /* var friendsRef = firebase.database().ref('friendship'); */
-      /* friendsRef.on("child_added", function(snapshot) { 
-        var currentUserId = snapshot.key;
-        currentUserId = USER_ID;
-         */
+      $(this).replaceWith('<button type="button" class="btn text-white font-weight-bold"><i class="fas fa-user-minus"></i> Seguindo</button>');
         database.ref('friendship/' + USER_ID).push({
           friend: allUsersId,
         });
-      /* }); */
     });
 
   });

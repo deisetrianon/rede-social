@@ -26,7 +26,7 @@ function createUser(name, email, password) {
     .then(function(response) {
       var userId = response.user.uid;
       userInfo(userId, name, email, password);
-      redirectToTasks(userId);
+      redirectToPosts(userId);
     })
     .catch(function(error) {
       handleError(error);
@@ -46,7 +46,7 @@ function signInUser(email, password) {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function(response) {
       var userId = response.user.uid;
-      redirectToTasks(userId);
+      redirectToPosts(userId);
     })
     .catch(function(error) {
       handleError(error);
@@ -58,7 +58,7 @@ function handleError(error) {
   alert(errorMessage);
 }
 
-function redirectToTasks(userId) {
+function redirectToPosts(userId) {
   window.location = "posts.html?id=" + userId;
 }
 

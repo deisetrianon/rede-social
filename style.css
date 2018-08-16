@@ -45,7 +45,7 @@ body {
 }
 
 .sign-in-email:focus , .sign-in-password:focus {
-  border-bottom: 2px solid #243845;
+  border-bottom: 2px solid #324D5E;
 }
 
 .sign-in-button , .sign-up-button {
@@ -57,8 +57,8 @@ body {
 }
 
 .sign-in-button:hover , .sign-up-button:hover {
-  color: #243845;
-  border: 1px solid #243845;
+  color: #324D5E;
+  border: 1px solid #324D5E;
 }
 
 .modal-content {
@@ -66,32 +66,43 @@ body {
 }
 
 .sign-up-name:focus , .sign-up-email:focus , .sign-up-password:focus {
-  border-bottom: 2px solid #243845;
+  border-bottom: 2px solid #324D5E;
 }
 
 small span {
   cursor: pointer;
 }
 
-#posts-page {
+#posts-page , #explore-page {
   display: flex;
   flex-direction: column;
   background-color: #ABDCFF;
   color: #616161;
 }
 
+#posts-page h1 , #explore-page h1 {
+  font-family: 'Julius Sans One', sans-serif;
+  font-size: 19px;
+  color: white;
+}
+
+#posts-page h5 , #explore-page h5 {
+  font-family: 'Julius Sans One', sans-serif;
+  font-size: 23px;
+}
+
 .pos-f-t {
   border-bottom: 1px solid white;
+  color: #324D5E;
+}
+
+.pos-f-t button , .post-box small , .info-user {
+  color: #324D5E;
+  font-weight: bold;
 }
 
 .bg-collapse {
   background-color: #ABDCFF;
-}
-
-#posts-page h1 {
-  font-family: 'Julius Sans One', sans-serif;
-  font-size: 19px;
-  color: white;
 }
 
 .log-out {
@@ -126,19 +137,10 @@ textarea:focus {
   border: 1px solid #9BD1D3;
 }
 
-.add-tasks {
+.add-posts , .button-all-posts , .button-friends-posts , .button-my-posts , .explore-user-box button {
   cursor: pointer;
   font-size: 15px;
-  color: white;
-  font-weight: bold;
   background-color: #54B8FF;
-}
-
-.tasks-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
 }
 
 .post-box {
@@ -147,7 +149,7 @@ textarea:focus {
   border: 1px solid #9BD1D3;
   font-size: 13px;
   margin: 10px;
-  color: #616161;
+  text-align: center;
 }
 
 .post-box-header {
@@ -155,12 +157,15 @@ textarea:focus {
   width: 100%;
   padding: 5px;
   text-align: right;
+  color: #324D5E;
+  font-weight: bold;
 }
 
 .post-box-main {
   display: flex;
   text-align: left;
   padding: 15px;
+  color: #616161;
 }
 
 .post-box-footer {
@@ -170,8 +175,13 @@ textarea:focus {
   width: 100%;
 }
 
-#explore-page {
-  background-color: #DDE7DC;
+.post-box button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #54B8FF;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .newsfeed , .explore {
@@ -192,4 +202,5 @@ textarea:focus {
   border-radius: 5px;
   display: flex;
   justify-content: space-evenly;
+  color: #9E9E9E;
 }

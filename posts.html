@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Travel Diaries: Explorar</title>
+  <title>Travel Diaries: Newsfeed</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="bootstrap-4.1.3-dist/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
@@ -13,34 +13,48 @@
   <script src="firebase-config.js"></script>
   <link rel="stylesheet" type="text/css" media="screen" href="Fontes/HelveticaNeue/helvetica-neue.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet"> 
 </head>
-<body id="explore-page">
+<body id="posts-page">
   <div class="pos-f-t">
     <div class="collapse" id="navbarToggleExternalContent">
-      <div class="bg-light p-4">
-        <h4 class="username text-dark"></h4>
+      <div class="bg-collapse p-4">
+        <h4 class="username font-weight-bold"></h4>
         <span class="text-muted">
           <button class="log-out mb-4"><i class="fas fa-sign-out-alt"></i> Sair</button><br>
-          <button class="bg-transparent newsfeed">Meu Newsfeed</button><br>
+          <button class="bg-transparent newsfeed">Newsfeed</button><br>
           <button class="bg-transparent explore">Explorar</button>
         </span>
       </div>
     </div>
-    <nav class="navbar navbar-light bg-light">
-      <h1>TITULO</h1>
+    <nav class="navbar navbar-light bg-collapse">
+      <h1>TRAVEL <i class="far fa-paper-plane fa-sm"></i> DIARIES</h1>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </nav>
   </div>
 
-  <section id="explore-section" class="d-flex flex-direction-column flex-wrap p-4">
-    <h5>Encontre usuários: </h5>
-    <div id="list-of-users"></div>
-  </section>
- 
+  <h5 class="text-white mt-2 mb-0 text-center"><i class="far fa-paper-plane fa-sm"></i> ESCREVA</h5>
+  <form class="form-posts pb-3">
+    <textarea class="add-post-input" placeholder="Compartilhe dicas e experiências"></textarea>
+    <div class="visibility-options">
+      <small>Quem pode ver esta postagem?</small><br>
+      <input type="radio" name="visibility" value="public" class="m-1"> <small>Todos</small>
+      <input type="radio" name="visibility" value="friends" class="m-1"> <small>Apenas amigos</small>
+    </div>
+    <button type="button" class="btn text-white font-weight-bold ml-auto mt-2 add-posts">Postar</button>
+  </form>
+  <div class="newsfeed-options m-auto">
+    <h5 class="text-white text-center"><i class="far fa-paper-plane fa-sm"></i> NEWSFEED</h5>
+    <button type="button" class="btn text-white font-weight-bold button-all-posts">Todos</button>
+    <button type="button" class="btn text-white font-weight-bold button-friends-posts">Seguindo</button>
+    <button type="button" class="btn text-white font-weight-bold button-my-posts">Eu</button>
+  </div>
+  <div class="posts-list d-flex flex-column w-100 justify-content-center mt-2"></div>
+
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
-  <script src="explore.js"></script> 
+  <script src="posts.js"></script> 
 </body>
 </html>
