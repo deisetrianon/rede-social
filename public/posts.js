@@ -5,7 +5,7 @@ $(document).ready(function() {
   getTasksFromDB();
   $(".add-tasks").click(addTasksClick);
   userInfo();
-  teste();
+  getFollowingPosts();
 });
 
 function addTasksClick(event) {
@@ -40,10 +40,15 @@ function getTasksFromDB() {
 function createListItem(text, key) {
   $(".tasks-list").prepend(`
     <div class="post-box">
-      <span id="post-text-${key}">${text}</span>
-      <br>
-      <button id="edit-post-${key}">Editar</button>
-      <button id="delete-post-${key}">Deletar</button>
+      <div class="post-box-header"><span class="current-user-name"></span></div>
+      <div class="post-box-main">
+        <i class="fas fa-user-circle fa-4x text-secondary mr-3"></i>
+        <span id="post-text-${key}">${text}</span>
+      </div>
+      <div class="post-box-footer">
+        <button type=button" id="edit-post-${key}">Editar</button>
+        <button type=button" id="delete-post-${key}">Deletar</button>
+      </div>
     </div>`);
 
   $(`#edit-post-${key}`).click(function() {
@@ -70,6 +75,7 @@ function userInfo() {
     var userName = snapshot.val().name;
     var userEmail = snapshot.val().email;
     $('.username').html('<i class="fas fa-user"></i> ' + userName + ' <small>(' + userEmail + ')</small>');
+    $('.current-user-name').html('Postado por: ' + userName + '<small> (SEU PERFIL)</small>');
   });
 }
 
@@ -89,7 +95,7 @@ $('.log-out').click(function() {
   });
 })
 
-function teste() {
+function getFollowingPosts() {
   var reference = firebase.database().ref('friendship/' + USER_ID);
   reference.on("child_added", function(snapshot) {
     /* console.log(snapshot.val().friend); */
@@ -99,13 +105,21 @@ function teste() {
     .then(function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         /* console.log(childSnapshot.key); */
-        var followingPosts = childSnapshot.val().text;
-        $(".tasks-list").prepend(`
-          <div class="post-box">
-            <span id="post-text-${childSnapshot.key}">${childSnapshot.val().text}</span>
-          </div>`);
+        database.ref("users/" + followingId).once('value')
+        .then(function(snapshot) {
+          /* console.log(snapshot.val().name); */
+          $(".tasks-list").prepend(`
+            <div class="post-box">
+              <div class="post-box-header">
+              <span id="following-name-${childSnapshot.key}">Postado por: ${snapshot.val().name} <small>(SEGUINDO)</small></span>
+              </div>
+              <div class="post-box-main">
+                <i class="fas fa-user-circle fa-4x text-secondary mr-3"></i>
+                <span id="post-text-${childSnapshot.key}">${childSnapshot.val().text}</span>
+              </div>
+            </div>`);
+        });
       });
     });
-
   });
 }

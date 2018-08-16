@@ -13,51 +13,44 @@
   <script src="firebase-config.js"></script>
   <link rel="stylesheet" type="text/css" media="screen" href="Fontes/HelveticaNeue/helvetica-neue.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet"> 
 </head>
 <body id="posts-page">
   <div class="pos-f-t">
     <div class="collapse" id="navbarToggleExternalContent">
-      <div class="bg-light p-4">
+      <div class="bg-collapse p-4">
         <h4 class="username text-dark"></h4>
         <span class="text-muted">
           <button class="log-out mb-4"><i class="fas fa-sign-out-alt"></i> Sair</button><br>
-          <button class="bg-transparent newsfeed">Meu Newsfeed</button><br>
+          <button class="bg-transparent newsfeed">Newsfeed</button><br>
           <button class="bg-transparent explore">Explorar</button>
         </span>
       </div>
     </div>
-    <nav class="navbar navbar-light bg-light">
-      <h1>TITULO</h1>
+    <nav class="navbar navbar-light bg-collapse">
+      <h1>TRAVEL <i class="far fa-paper-plane fa-sm"></i> DIARIES</h1>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </nav>
   </div>
 
-  <form class="form-posts">
-    <!-- <select id="visibility">
-      <option value="private">private</option>
-      <option value="friends">friends</option>
-      <option value="public">public</option>
-    </select> -->
+  <form class="form-posts pb-3">
     <textarea class="tasks-input" placeholder="Compartilhe suas experiências"></textarea>
     <div class="visibility-options">
       <small>Quem pode ver esta postagem?</small><br>
-      <input type="radio" name="visibility" value="public" class="m-1" checked> <small>Todos</small>
+      <input type="radio" name="visibility" value="public" class="m-1"> <small>Todos</small>
       <input type="radio" name="visibility" value="friends" class="m-1"> <small>Apenas amigos</small>
       <!-- <input type="radio" name="visibility" value="private" class="m-1"> <small>Apenas eu</small> -->
     </div>
-    <button type="button" class="btn btn-primary w-100 mt-2 add-tasks">Postar</button>
+    <button type="button" class="btn ml-auto mt-2 add-tasks">Postar</button>
   </form>
-  <form class="form-newsfeed">
-    <div class="form-group">
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option value="allPosts">Todos os posts</option>
-        <option value="friendsPosts">Posts de amigos</option>
-        <option value="myPosts">Meus posts</option>
-      </select>
-    </div>
-  </form>
+  <div class="newsfeed-options m-auto">
+    <small>Quais postagens quer ver?</small><br>
+    <input type="radio" name="newsfeed" value="allposts" class="m-1"><small>Todas</small></option>
+    <input type="radio" name="newsfeed" value="friendsposts" class="m-1"><small>De quem sigo</small></option>
+    <input type="radio" name="newsfeed" value="myposts" class="m-1"><small>Minhas</small></option>
+  </div>
   <div class="tasks-list"></div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
