@@ -4,8 +4,8 @@ var USER_ID = window.location.search.match(/\?id=(.*)/)[1];
 $(document).ready(function() {
   getTasksFromDB();
   $(".add-tasks").click(addTasksClick);
+  getFriendsPosts();
   userInfo();
-  getFollowingPosts();
 });
 
 function addTasksClick(event) {
@@ -67,6 +67,8 @@ function createListItem(text, key) {
     database.ref("posts/" + USER_ID + "/" + key).remove();
     $(this).parent().remove();
   });
+
+  userInfo();
 }
 
 function userInfo() {
@@ -79,24 +81,9 @@ function userInfo() {
   });
 }
 
-$('.newsfeed').click(function(){
-  window.location = "posts.html?id=" + USER_ID;
-})
-
-$('.explore').click(function(){
-  window.location = "explore.html?id=" + USER_ID;
-})
-
-$('.log-out').click(function() {
-  firebase.auth().signOut().then(function() {
-    window.location = "index.html";
-  }).catch(function(error) {
-    alert(error.message);
-  });
-})
-
-function getFollowingPosts() {
+function getFriendsPosts() {
   var reference = firebase.database().ref('friendship/' + USER_ID);
+
   reference.on("child_added", function(snapshot) {
     /* console.log(snapshot.val().friend); */
     var followingId = snapshot.val().friend;
@@ -123,3 +110,33 @@ function getFollowingPosts() {
     });
   });
 }
+
+$('.button-all-posts').click(function(){
+  window.location = "posts.html?id=" + USER_ID;
+})
+
+$('.button-friends-posts').click(function(){
+  $('.tasks-list').html('');
+  getFriendsPosts();
+})
+
+$('.button-my-posts').click(function(){
+  $('.tasks-list').html('');
+  getTasksFromDB(); 
+})
+
+$('.newsfeed').click(function(){
+  window.location = "posts.html?id=" + USER_ID;
+})
+
+$('.explore').click(function(){
+  window.location = "explore.html?id=" + USER_ID;
+})
+
+$('.log-out').click(function() {
+  firebase.auth().signOut().then(function() {
+    window.location = "index.html";
+  }).catch(function(error) {
+    alert(error.message);
+  });
+})
